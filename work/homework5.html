@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>对联广告</title>
+<style>
+/* 通用选择器，匹配文档中的所有元素 */
+* {
+    margin: auto;  /* 设置外边距为自动，实现水平居中 */
+    padding: 0;    /* 设置内边距为0 */
+    color: #333;   /* 设置文本颜色为深灰色 */
+}
+
+/* 左边对联广告和右边对联广告的样式 */
+#leftAd, #rightAd{
+    position: fixed;       /* 设置为固定定位，相对于浏览器窗口位置固定 */
+    top: 0;                /* 距离顶部距离为0 */
+    width: 250px;          /* 宽度为250像素 */
+    height: 100vh;         /* 高度为100%浏览器视口高度 */
+    border: 1px solid #ccc;    /* 边框为1像素的淡灰色实线 */
+    padding: 10px;              /* 内边距为10像素 */
+    z-index: 9999;             /* 设置堆叠顺序为9999，使其位于其他元素之上 */
+}
+
+#popupAd{
+	position: fixed;       /* 设置为固定定位，相对于浏览器窗口位置固定 */
+	bottom: 0;                /* 距离底部距离为0 */
+	width: 250px;          /* 宽度为250像素 */
+	border: 1px solid #ccc;    /* 边框为1像素的淡灰色实线 */
+	padding: 10px;              /* 内边距为10像素 */
+	z-index: 9999;             /* 设置堆叠顺序为9999，使其位于其他元素之上 */
+	right: 0;
+}
+
+/* 左边对联广告样式 */
+#leftAd {
+    left: 0;  /* 左侧距离为0 */
+}
+
+/* 右边对联广告样式 */
+#rightAd{
+    right: 0;  /* 右侧距离为0 */
+}
+
+/* 关闭按钮样式 */
+#leftCloseBtn,#rightCloseBtn,#popupCloseBtn {
+    position: absolute;  /* 绝对定位，相对于其最近的已定位的祖先元素 */
+    top: 10px;            /* 顶部距离为5像素 */
+    right: 10px;          /* 右侧距离为5像素 */
+	color: #fff;
+	border: 1px solid #333;
+	background-color: #333;
+    cursor: pointer;     /* 鼠标悬停时显示手型光标 */
+}
+
+/* 内容区样式 */
+div.content {
+    width: 65%;              /* 宽度为父元素宽度的70% */
+    min-height: 300vh;       /* 最小高度为浏览器视口高度的300% */
+    border: 1px solid #333;  /* 边框为1像素的深灰色实线 */
+    margin: 0 auto;          /* 水平居中 */
+    /* margin-top: 100px; */ /* 注释掉，不使用上边距 */
+    padding: 20px;           /* 内边距为20像素 */
+}
+
+/* 图片样式 */
+#leftAd > img,
+#rightAd > img{
+    width: 100%; /* 将图片宽度设置为其父元素宽度的100% */
+}
+#popupAd img {
+    width: 250px; /* 设置图片宽度 */
+    height: auto; /* 自动计算高度，保持图片比例 */
+}
+#popupAd {
+    position: fixed;
+    display: none;
+    /* 添加动画效果的样式 */
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<div id="leftAd">
+    <span id="leftCloseBtn" onclick="closeLeftAd()">关闭</span>
+    <img src="../img/gu.jpg" alt="左边对联广告">
+</div>
+<div id="rightAd">
+    <span id="rightCloseBtn" onclick="closeRightAd()">关闭</span>
+    <img src="../img/gu.jpg" alt="右边对联广告">
+</div>
+
+<div id="popupAd">
+    <span id="popupCloseBtn" onclick="closePopup()">关闭</span>
+    <img src="../img/zhang.jpg" alt="弹窗广告"/>
+</div>
+
+<div class="content">
+    <p>这是一个广告</p>
+</div>
+
+<script>
+function closeLeftAd() {
+    var leftAd = document.getElementById("leftAd");
+    leftAd.style.display = "none";
+}
+
+function closeRightAd() {
+    var rightAd = document.getElementById("rightAd");
+    rightAd.style.display = "none";
+}
+
+// 显示弹窗广告
+function showPopup() {
+    var popup = document.getElementById("popupAd");
+    popup.style.display = "block";
+}
+
+// 关闭弹窗广告
+function closePopup() {
+    var popup = document.getElementById("popupAd");
+    popup.style.display = "none";
+}
+
+
+// 页面加载完成后显示广告（仅示例）
+window.onload = function() {
+    // 假设延迟3秒后显示广告
+    setTimeout(showPopup, 3000);
+};
+// 使用 BOM 获取浏览器信息（仅作示例）
+var browserInfo = "浏览器信息：" + navigator.userAgent;
+console.log(browserInfo);
+</script>
+</body>
+</html>

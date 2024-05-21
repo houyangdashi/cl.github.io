@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>让坦克开起来</title>
+<style type="text/css">
+input{font-size:26px;margin-top: 20px;}
+body{background-image: url(../img/grassland.png);}
+#mytank{position: absolute;left:10px;top:100px}
+</style>
+</head>
+<body>		
+<img id="mytank" src="../img/right.png"/>
+<script>
+const tank = document.getElementById('mytank');
+
+// 监听键盘事件
+document.addEventListener('keydown', (event) => {
+    // 获取当前坦克的位置
+    let tankLeft = parseInt(window.getComputedStyle(tank).getPropertyValue('left'));
+    let tankTop = parseInt(window.getComputedStyle(tank).getPropertyValue('top'));
+    
+    // 根据按下的键移动坦克
+    switch (event.key) {
+        case 'w':
+        case 'ArrowUp':
+            if (tankTop > 0) {
+                tank.style.top = (tankTop - 10) + 'px';
+                tank.src = "../img/up.png";
+            }
+            break;
+        case 's':
+        case 'ArrowDown':
+            if (tankTop < window.innerHeight - 50) {
+                tank.style.top = (tankTop + 10) + 'px';
+                tank.src = "../img/down.png";
+            }
+            break;
+        case 'a':
+        case 'ArrowLeft':
+            if (tankLeft > 0) {
+                tank.style.left = (tankLeft - 10) + 'px';
+                tank.src = "../img/left.png";
+            }
+            break;
+        case 'd':
+        case 'ArrowRight':
+            if (tankLeft < window.innerWidth - 50) {
+                tank.style.left = (tankLeft + 10) + 'px';
+                tank.src = "../img/right.png";
+            }
+            break;
+        default:
+            break;
+    }
+});
+
+// 阻止鼠标右键点击弹出菜单
+document.addEventListener('contextmenu', (event) => {
+    event.preventDefault();
+});
+</script>
+</body>
+</html>

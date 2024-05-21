@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>练习5：DOM操作</title>
+		<style type="text/css">
+			html,div,ul,li {margin: 0px;padding: 0px;}
+			a{cursor: pointer;}
+			li {list-style: none;cursor: pointer;}
+			fieldset {border: #000 1px dashed;width: 225px;height: 225px;padding: 10px;text-align: center;float: left;margin-left: 5px;}
+			#cont_left {width: 300px;height: 500px;float: left;}
+			#cont_right {float: left;}
+			.newcss1{background-color: yellowgreen;}
+		</style>
+	</head>
+	<body>
+		<div id="cont_left">
+			<ul><img src="../img/fold.gif"><a onclick="show('menu1')"> 通过DOM获取信息 </a>
+				<ul id="menu1">
+					<li onclick="showImg()"><img src="../img/doc.gif">获取原始图片路径</li>
+					<li onclick="getFruit()"><img src="../img/doc.gif">获取我喜欢的水果</li>
+				</ul>
+			</ul>
+
+			<ul><img src="../img/fold.gif"><a onclick="show('menu2')"> 通过DOM操作元素 </a>
+				<ul id="menu2">
+					<li onclick="createImg()"><img src="../img/doc.gif">创建图片</li>
+					<li onclick="cloneImg()"><img src="../img/doc.gif">克隆图片</li>
+					<li onclick="changeImg()"><img src="../img/doc.gif">改变图片</li>
+					<li onclick="removeImg()"><img src="../img/doc.gif">删除图片</li>
+				</ul>
+			</ul>
+
+			<ul><img src="../img/fold.gif"><a onclick="show('menu3')"> 通过DOM操作样式 </a>
+				<ul id="menu3">
+					<li onclick="changeCss1()"><img src="../img/doc.gif">为原始图片加上行间样式</li>
+					<li onclick="changeCss2()"><img src="../img/doc.gif">为所有的fieldset加上内部样式</li>
+				</ul>
+			</ul>
+
+		</div>
+		<fieldset>
+			<legend>原始图片</legend>
+			<img id="fruit" src="../img/fruit.jpg">
+		</fieldset>
+		<fieldset>
+			<legend>图片路径</legend>
+			<p id="msg1">在这里显示</p>
+		</fieldset>
+		<fieldset>
+			<legend>选择你喜欢的水果</legend>
+			<ul style="text-align: left;">
+				<li>
+					<input name="enjoy" type="checkbox" value="苹果" />苹果
+				</li>
+				<li>
+					<input name="enjoy" type="checkbox" value="香蕉" checked="checked" />香蕉
+				</li>
+				<li>
+					<input name="enjoy" type="checkbox" value="葡萄" />葡萄
+				</li>
+				<li>
+					<input name="enjoy" type="checkbox" value="梨" checked="checked" />梨
+				</li>
+				<li>
+					<input name="enjoy" type="checkbox" value="西瓜" />西瓜
+				</li>
+			</ul>
+			<div id="msg2" style="margin-top: 10px;text-align: left;"></div>
+		</fieldset>
+		<fieldset>
+			<legend>创建图片</legend>
+			<div id="msg3"></div>
+		</fieldset>
+		<fieldset>
+			<legend>克隆图片</legend>
+			<div id="msg4"></div>
+		</fieldset>
+		<script>
+			//菜单收缩与扩展
+			function show(title) {
+				let currentMenu = document.getElementById(title);
+				let currentStatus = currentMenu.style.display;
+				currentMenu.style.display = currentStatus == "" ? "none" : "";
+			}
+			//获取原始图片路径219970503陈磊
+			function showImg() {
+			var originalImage = document.getElementById('fruit'); // 获取原始图片元素
+			var imagePath = originalImage.getAttribute('src'); // 获取原始图片路径
+				
+			var msgElement = document.getElementById('msg1'); // 获取显示路径的元素
+			msgElement.textContent = imagePath; // 在元素中显示路径
+			}
+			//获取喜欢的水果219970503陈磊
+			function getFruit() {
+			   var checkboxes = document.getElementsByName('enjoy'); // 获取所有复选框元素
+			
+			    var favoriteFruits = []; // 存储用户喜欢的水果
+			
+			    for (var i = 0; i < checkboxes.length; i++) {
+			        if (checkboxes[i].checked) {
+			            favoriteFruits.push(checkboxes[i].value); // 将被选中的水果添加到数组中
+			        }
+			    }
+			
+			    var msgElement = document.getElementById('msg2'); // 获取用于显示消息的元素
+			    msgElement.textContent = "你最喜欢的水果是：" + favoriteFruits.join(', '); // 在元素中显示最喜欢的水果	
+			}
+			//创建图片219970503陈磊
+			function createImg() {
+			    var originalImageSrc = "../img/fruit.jpg"; // 原始图片路径
+			
+			    var newImage = document.createElement('img'); // 创建一个新的图片元素
+			    newImage.src = originalImageSrc; // 设置新图片的src属性为原始图片路径
+			
+			    var msgElement = document.getElementById('msg3'); // 获取用于显示图片的容器元素
+			    msgElement.innerHTML = ''; // 清空容器内容
+			    msgElement.appendChild(newImage); // 将新创建的图片元素添加到容器中显示	
+			}
+			//克隆图片219970503陈磊
+			function cloneImg() {
+			var originalImage = document.getElementById('fruit'); // 获取原始图片元素
+			var clonedImage = originalImage.cloneNode(true); // 克隆原始图片元素，包括其子元素
+      
+			var clonedContainer = document.getElementById('msg4'); // 获取克隆图片容器
+			clonedContainer.innerHTML = ''; // 清空容器
+      
+			clonedContainer.appendChild(clonedImage); // 将克隆的图片元素添加到容器中显示
+			}
+			//改变图片219970503陈磊
+			function changeImg() {
+			var newImagePath = '../img/grape.jpg'; // 新的图片路径
+				
+			var imgElement = document.getElementById('fruit'); // 获取图片元素
+			imgElement.src = newImagePath; // 设置图片的 src 属性为新的图片路径
+			}
+			//删除图片219970503陈磊
+			function removeImg() {
+			var imgElement = document.getElementById('fruit'); // 获取图片元素
+			var parentElement = imgElement.parentNode; // 获取图片元素的父元素
+			
+			parentElement.removeChild(imgElement); // 从父元素中移除图片元素
+			}
+			//操作样式1 219970503陈磊
+			function changeCss1(){
+			var fieldsetElement = document.querySelector('fieldset'); // 获取 fieldset 元素
+			
+			fieldsetElement.style.border = '10px solid red'; // 将 fieldset 边框颜色改为红色	
+			}
+			//操作样式2 219970503陈磊
+			function changeCss2(){
+		   var fieldsetElements = document.querySelectorAll('fieldset'); // 获取所有 fieldset 元素
+		
+		    fieldsetElements.forEach(function(fieldsetElement) {
+		        fieldsetElement.style.backgroundColor = 'lightyellow'; // 设置背景颜色为蓝色
+		        fieldsetElement.style.border = '1px dashed #000'; // 保持原来的边框样式
+		        fieldsetElement.style.width = '235px'; // 调整宽度以容纳背景色
+		        fieldsetElement.style.height = '235px'; // 调整高度以容纳背景色
+		        fieldsetElement.style.padding = '10px'; // 设置内边距
+		        fieldsetElement.style.textAlign = 'center'; // 设置文本居中
+		    });
+			}
+		</script>
+	</body>
+</html>

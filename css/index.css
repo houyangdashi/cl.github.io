@@ -1,0 +1,49 @@
+.mytitle {
+	    color: blue;
+	    font-size: 24px;
+	    text-align: center; /* Center align the title */
+	}
+	
+	ul#dowebok {
+	    list-style-type: none;
+	    padding: 0;
+	    display: flex;
+	    flex-wrap: wrap; /* Ensure items wrap to new lines */
+	    justify-content: space-between; /* Distribute items evenly */
+	    border: 2px solid black; /* Add border to the list */
+	}
+	
+	ul#dowebok li {
+	    width: calc(50% - 10px); /* Two items per row with spacing */
+	    margin-bottom: 20px;
+	    text-align: center; /* Center align list items */
+	    border: 1px solid black; /* Add border to each list item */
+	    box-sizing: border-box; /* Include border in the calculation of width */
+	}
+	
+	ul#dowebok li:nth-child(odd) {
+	    margin-right: 20px; /* Add spacing between list items */
+	}
+	
+	ul#dowebok li div {
+	    display: flex;
+	    flex-direction: column; /* Align image above text */
+	}
+	
+	ul#dowebok li img {
+	    width: 300px; /* Fixed width */
+	    height: 300px; /* Fixed height */
+	    margin-bottom: 5px; /* Space between image and text */
+	    object-fit: cover; /* Crop and cover the set area */
+	}
+	
+	ul#dowebok li .dt {
+	    text-align: center;
+	}
+	
+	ul#dowebok li .dt a {
+	    color: black;
+	    text-decoration: none;
+	    font-weight: bold;
+	    display: block; /* Ensure full width clickable area */
+	}
