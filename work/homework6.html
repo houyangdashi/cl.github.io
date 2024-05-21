@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>制作游戏角色</title>
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .all {
+            width: 100%;
+            height: 100vh; /* 使用视口单位 */
+            overflow: hidden; /* 清除浮动 */
+        }
+        
+        .move {
+            float: left;
+            width: 100%;
+            background-color: #000000;
+            height: 100%; /* 确保子元素填满整个高度 */
+            position: relative; /* 设置相对定位，使得子元素可以使用绝对定位 */
+        }
+        
+        #player {
+            position: absolute; /* 设置绝对定位，以便准确定位 */
+        }
+    </style>
+</head>
+<body>
+    <div class="all">
+        <div class="move">
+            <img id="player" src="../img/player_right.gif" style="height: 200px;">
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            // 阻止右键菜单
+            $(".move").on("contextmenu", function(event) {
+                event.preventDefault(); // 阻止默认行为
+            });
+            
+            // 鼠标左键点击事件
+            $(".move").on("mousedown", function(event) {
+                if (event.which === 1) { // 1代表左键
+                    var x = event.pageX - $(this).offset().left;
+                    var y = event.pageY - $(this).offset().top;
+                    
+                    $("#player").stop().animate({left: x, top: y}, 2000); // 2000ms 的过渡效果
+                    
+                    var playerX = $("#player").position().left;
+                    if (x < playerX) {
+                        if ($("#player").attr("src") !== "../img/player1_big.gif") {
+                            $("#player").attr("src", "../img/player_left.gif");
+                        }
+                    } else {
+                        if ($("#player").attr("src") !== "../img/player1_big.gif") {
+                            $("#player").attr("src", "../img/player_right.gif");
+                        }
+                    }
+                }
+            });
+            
+            // 鼠标右键点击事件
+            $(".move").on("mousedown", function(event) {
+                if (event.which === 3) { 
+                    $("#player").attr("src", "../img/player3.gif");
+                    setTimeout(function() {
+                        $("#player").attr("src", "../img/player_right.gif");
+                    }, 6000); // 3秒后恢复原图片
+                }
+            });
+            
+            // 鼠标左键双击事件
+            var isTransformed = false;
+            $(".move").on("dblclick", function(event) {
+                if (!isTransformed) {
+                    $("#player").attr("src", "../img/player1_big.gif");
+                    isTransformed = true;
+                } else {
+                    $("#player").attr("src", "../img/player_right.gif");
+                    isTransformed = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
